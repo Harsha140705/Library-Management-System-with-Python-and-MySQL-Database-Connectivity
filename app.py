@@ -9,10 +9,10 @@ app.secret_key = 'your-secret-key-change-this-in-production'
 
 # Database configuration
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'mysql123',
-    'database': 'Library'
+    'host': 'dpg-d36q062li9vc73dbugcg-a',
+    'user': 'thebookworm_user',
+    'password': '6fb5ZGBG0bXoZzRKLW6cCQihLQHG9cim',
+    'database': 'thebookworm'
 }
 
 def get_db_connection():
