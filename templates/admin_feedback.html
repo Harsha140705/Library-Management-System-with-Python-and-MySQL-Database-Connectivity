@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}User Feedback - The Book Worm{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4"><i class="fas fa-comments"></i> User Feedback</h2>
+    </div>
+</div>
+
+<!-- Feedback Statistics -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <h3>{{ feedbacks|length }}</h3>
+                <p class="mb-0">Total Feedback</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h3>
+                    {% if feedbacks %}
+                        {{ "%.1f"|format(feedbacks|map(attribute=1)|map('int')|sum / feedbacks|length) }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </h3>
+                <p class="mb-0">Average Rating</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body text-center">
+                <h3>
+                    {{ feedbacks|selectattr('1', '>=', '8')|list|length }}
+                </h3>
+                <p class="mb-0">High Ratings (8+)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-danger text-white">
+            <div class="card-body text-center">
+                <h3>
+                    {{ feedbacks|selectattr('1', '<=', '5')|list|length }}
+                </h3>
+                <p class="mb-0">Low Ratings (≤5)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> All Feedback</h5>
+            </div>
+            <div class="card-body">
+                {% if feedbacks %}
+                    <div class="row g-4">
+                        {% for feedback in feedbacks %}
+                        <div class="col-12">
+                            <div class="card border-left-primary">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <p class="card-text">{{ feedback[0] }}</p>
+                                        </div>
+                                        <div class="col-md-4 text-end">
+                                            <div class="rating-display">
+                                                <span class="badge bg-{{ 'success' if feedback[1]|int >= 8 else 'warning' if feedback[1]|int >= 6 else 'danger' }} fs-6">
+                                                    {{ feedback[1] }}/10
+                                                </span>
+                                                <div class="stars mt-2">
+                                                    {% for i in range(1, 11) %}
+                                                        {% if i <= feedback[1]|int %}
+                                                            <i class="fas fa-star text-warning"></i>
+                                                        {% else %}
+                                                            <i class="far fa-star text-muted"></i>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-comments fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No feedback received yet</h5>
+                        <p class="text-muted">User feedback will appear here once users start submitting their reviews.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rating Distribution -->
+{% if feedbacks %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar"></i> Rating Distribution</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for rating in range(1, 11) %}
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>{{ rating }} Star{{ 's' if rating != 1 else '' }}</span>
+                            <div class="progress flex-grow-1 mx-2" style="height: 20px;">
+                                {% set count = feedbacks|selectattr('1', 'equalto', rating|string)|list|length %}
+                                {% set percentage = (count / feedbacks|length * 100) if feedbacks|length > 0 else 0 %}
+                                <div class="progress-bar bg-{{ 'success' if rating >= 8 else 'warning' if rating >= 6 else 'danger' }}" 
+                                     style="width: {{ percentage }}%"></div>
+                            </div>
+                            <span class="badge bg-secondary">{{ count }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

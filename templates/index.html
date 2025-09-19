@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - The Book Worm{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Animated Background -->
+    <div class="hero-section-enhanced">
+        <div class="hero-background">
+            <div class="floating-books">
+                <div class="book book-1">📚</div>
+                <div class="book book-2">📖</div>
+                <div class="book book-3">📕</div>
+                <div class="book book-4">📗</div>
+                <div class="book book-5">📘</div>
+                <div class="book book-6">📙</div>
+                <div class="book book-7">📓</div>
+                <div class="book book-8">📒</div>
+            </div>
+            <!-- Decorative Elements -->
+            <div class="hero-decorations">
+                <div class="decoration decoration-1">✨</div>
+                <div class="decoration decoration-2">🌟</div>
+                <div class="decoration decoration-3">💫</div>
+                <div class="decoration decoration-4">⭐</div>
+            </div>
+        </div>
+    
+    <div class="hero-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <div class="hero-text">
+                        <h1 class="hero-title animate-fade-in-up">
+                            <span class="text-gradient">Welcome to</span><br>
+                            <span class="brand-name">The Book Worm</span>
+                        </h1>
+                        <p class="hero-subtitle animate-fade-in-up-delay">
+                            Your modern, digital library management system. Experience the future of library services 
+                            with our intuitive, responsive, and feature-rich platform.
+                        </p>
+                        
+                        <div class="hero-buttons animate-fade-in-up-delay-2">
+                            <a href="{{ url_for('login') }}" class="btn btn-hero btn-hero-primary">
+                                <i class="fas fa-rocket"></i>
+                                <span>Get Started</span>
+                                <div class="btn-shine"></div>
+                            </a>
+                            <a href="#features" class="btn btn-hero btn-hero-outline">
+                                <i class="fas fa-play"></i>
+                                <span>Learn More</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Access Cards -->
+<div class="container mt-5">
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="access-card admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Admin Portal</h3>
+                    <p>Complete library management with advanced administrative tools and analytics.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Book Management</span>
+                        <span class="feature-tag">User Analytics</span>
+                        <span class="feature-tag">Reports</span>
+                    </div>
+                    <a href="{{ url_for('login') }}" class="btn btn-card">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Admin Login
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="access-card user-card">
+                <div class="card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="card-content">
+                    <h3>User Portal</h3>
+                    <p>Browse, borrow, and manage your books with our user-friendly interface.</p>
+                    <div class="card-features">
+                        <span class="feature-tag">Book Browsing</span>
+                        <span class="feature-tag">Digital Library</span>
+                        <span class="feature-tag">Feedback</span>
+                    </div>
+                    <a href="{{ url_for('login') }}" class="btn btn-card">
+                        <i class="fas fa-sign-in-alt"></i>
+                        User Login
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<section id="features" class="features-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title">Why Choose The Book Worm?</h2>
+            <p class="section-subtitle">Discover the features that make our library management system exceptional</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h4>Smart Book Management</h4>
+                    <p>Advanced book cataloging with real-time availability tracking and automated notifications.</p>
+                    <div class="feature-highlight">
+                        <i class="fas fa-check"></i> Real-time Updates
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>User-Friendly Interface</h4>
+                    <p>Intuitive design that works seamlessly across all devices - desktop, tablet, and mobile.</p>
+                    <div class="feature-highlight">
+                        <i class="fas fa-check"></i> Responsive Design
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Analytics & Reports</h4>
+                    <p>Comprehensive analytics to track library usage, popular books, and user engagement.</p>
+                    <div class="feature-highlight">
+                        <i class="fas fa-check"></i> Data Insights
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Secure & Reliable</h4>
+                    <p>Enterprise-grade security with encrypted data storage and secure user authentication.</p>
+                    <div class="feature-highlight">
+                        <i class="fas fa-check"></i> Bank-Level Security
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h4>Feedback System</h4>
+                    <p>Interactive feedback system with ratings and reviews to continuously improve services.</p>
+                    <div class="feature-highlight">
+                        <i class="fas fa-check"></i> User Reviews
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Mobile Optimized</h4>
+                    <p>Access your library anywhere, anytime with our fully optimized mobile experience.</p>
+                    <div class="feature-highlight">
+                        <i class="fas fa-check"></i> Anywhere Access
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="stat-number" data-count="1000">0</div>
+                    <div class="stat-label">Books Available</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                    <div class="stat-number" data-count="250">0</div>
+                    <div class="stat-label">Books Issued</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number" data-count="4.8">0</div>
+                    <div class="stat-label">User Rating</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="cta-content">
+                    <h2>Ready to Transform Your Library Experience?</h2>
+                    <p>Join thousands of users who have already discovered the future of library management.</p>
+                    <div class="cta-buttons">
+                        <a href="{{ url_for('register') }}" class="btn btn-cta btn-cta-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </a>
+                        <a href="{{ url_for('login') }}" class="btn btn-cta btn-cta-outline">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Login - The Book Worm{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h4><i class="fas fa-sign-in-alt"></i> Login</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="user_type" class="form-label">Login As</label>
+                        <select class="form-select" id="user_type" name="user_type" required>
+                            <option value="">Select user type</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">User ID</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" required>
+                        <div class="form-text">
+                            <small class="text-muted">
+                                <strong>Default Admin:</strong> Kunal1020, Siddesh510, Vishal305<br>
+                                <strong>Default Users:</strong> 101, 102, 103
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="form-text">
+                            <small class="text-muted">
+                                <strong>Default Admin Passwords:</strong> 123, 786, 675<br>
+                                <strong>Default User Passwords:</strong> 1234, 3050, 5010
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </div>
+                </form>
+                
+                <hr>
+                
+                <div class="text-center">
+                    <p class="mb-0">Don't have an account?</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Books - The Book Worm{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4"><i class="fas fa-book"></i> Library Books</h2>
+    </div>
+</div>
+
+<!-- Currently Issued Book -->
+{% if issued_book %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5><i class="fas fa-bookmark"></i> Your Currently Issued Book</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>{{ issued_book[1] }}</h5>
+                        <p class="text-muted mb-1"><strong>Author:</strong> {{ issued_book[2] }}</p>
+                        <p class="text-muted mb-1"><strong>Publisher:</strong> {{ issued_book[3] }}</p>
+                        <p class="text-muted mb-0"><strong>Book ID:</strong> {{ issued_book[0] }}</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <a href="{{ url_for('return_book', book_id=issued_book[0]) }}" 
+                           class="btn btn-danger"
+                           onclick="return confirm('Are you sure you want to return this book?')">
+                            <i class="fas fa-undo"></i> Return Book
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Available Books -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Available Books</h5>
+            </div>
+            <div class="card-body">
+                {% if available_books %}
+                    <div class="row g-4">
+                        {% for book in available_books %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ book[1] }}</h6>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            <strong>Author:</strong> {{ book[2] }}<br>
+                                            <strong>Publisher:</strong> {{ book[3] }}<br>
+                                            <strong>Book ID:</strong> {{ book[0] }}
+                                        </small>
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    {% if issued_book %}
+                                        <button class="btn btn-outline-secondary btn-sm w-100" disabled>
+                                            <i class="fas fa-ban"></i> Already have a book
+                                        </button>
+                                    {% else %}
+                                        <a href="{{ url_for('issue_book', book_id=book[0]) }}" 
+                                           class="btn btn-primary btn-sm w-100"
+                                           onclick="return confirm('Are you sure you want to issue this book?')">
+                                            <i class="fas fa-book"></i> Issue Book
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-book fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No available books</h5>
+                        <p class="text-muted">All books are currently issued. Check back later!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Library Information -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Borrowing Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Borrowing Rules:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> You can borrow one book at a time</li>
+                            <li><i class="fas fa-check text-success"></i> Return books promptly when finished</li>
+                            <li><i class="fas fa-check text-success"></i> Handle books with care</li>
+                            <li><i class="fas fa-check text-success"></i> Contact admin for any issues</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Your Status:</h6>
+                        <ul class="list-unstyled">
+                            {% if issued_book %}
+                                <li><i class="fas fa-book text-warning"></i> Currently have 1 book issued</li>
+                                <li><i class="fas fa-ban text-danger"></i> Cannot issue more books</li>
+                            {% else %}
+                                <li><i class="fas fa-check text-success"></i> No books currently issued</li>
+                                <li><i class="fas fa-plus text-primary"></i> Can issue a book</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

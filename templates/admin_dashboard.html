@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - The Book Worm{% endblock %}
+
+{% block content %}
+<!-- Welcome Section -->
+<div class="dashboard-header">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="dashboard-title">
+                <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+            </h1>
+            <p class="dashboard-subtitle">
+                Welcome back, <span class="admin-name">{{ session.admin_id }}</span>! 
+                Here's your library management overview.
+            </p>
+            <div class="dashboard-badges">
+                <span class="badge badge-primary">
+                    <i class="fas fa-shield-alt"></i> Admin Access
+                </span>
+                <span class="badge badge-success">
+                    <i class="fas fa-database"></i> Database Connected
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="dashboard-time">
+                <i class="fas fa-clock"></i>
+                <span id="current-time"></span>
+            </div>
+            <div class="dashboard-weather">
+                <i class="fas fa-sun"></i>
+                <span>All Systems Operational</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-5">
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card books-card">
+            <div class="card-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="{{ stats.total_books }}">{{ stats.total_books }}</h3>
+                <p class="card-label">Total Books</p>
+                <div class="card-trend">
+                    <i class="fas fa-arrow-up text-success"></i>
+                    <span>{{ stats.total_books }} books in library</span>
+                </div>
+            </div>
+            <a href="{{ url_for('admin_books') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card users-card">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="{{ stats.total_users }}">{{ stats.total_users }}</h3>
+                <p class="card-label">Active Users</p>
+                <div class="card-trend">
+                    <i class="fas fa-arrow-up text-success"></i>
+                    <span>{{ stats.total_users }} registered users</span>
+                </div>
+            </div>
+            <a href="{{ url_for('admin_users') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card issued-card">
+            <div class="card-icon">
+                <i class="fas fa-bookmark"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="{{ stats.books_issued }}">{{ stats.books_issued }}</h3>
+                <p class="card-label">Books Issued</p>
+                <div class="card-trend">
+                    <i class="fas fa-arrow-up text-success"></i>
+                    <span>{{ stats.books_issued }} books currently out</span>
+                </div>
+            </div>
+            <a href="{{ url_for('admin_users') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card feedback-card">
+            <div class="card-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="{{ stats.total_feedback }}">{{ stats.total_feedback }}</h3>
+                <p class="card-label">Feedback Received</p>
+                <div class="card-trend">
+                    <i class="fas fa-arrow-up text-success"></i>
+                    <span>{{ stats.total_feedback }} total reviews</span>
+                </div>
+            </div>
+            <a href="{{ url_for('admin_feedback') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="section-header">
+            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+            <p>Frequently used administrative tasks</p>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="action-content">
+                        <h5>Add New Book</h5>
+                        <p>Add a new book to the library collection</p>
+                    </div>
+                    <a href="{{ url_for('admin_books') }}" class="action-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="action-content">
+                        <h5>Manage Users</h5>
+                        <p>View and manage user accounts</p>
+                    </div>
+                    <a href="{{ url_for('admin_users') }}" class="action-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="action-content">
+                        <h5>View Analytics</h5>
+                        <p>Check library usage statistics</p>
+                    </div>
+                    <a href="{{ url_for('admin_feedback') }}" class="action-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="activity-card">
+            <div class="card-header">
+                <h5><i class="fas fa-history"></i> Recent Activity</h5>
+            </div>
+            <div class="card-body">
+                <div class="activity-list">
+                    {% if stats.recent_books %}
+                        {% for book in stats.recent_books[:3] %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-book text-primary"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h6>Book in Library</h6>
+                                <p>"{{ book[0] }}" by {{ book[1] }}</p>
+                                <small class="text-muted">Available for borrowing</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if stats.recent_users %}
+                        {% for user in stats.recent_users[:2] %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user text-success"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h6>Registered User</h6>
+                                <p>{{ user[0] }} is now a library member</p>
+                                <small class="text-muted">Active user</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if stats.recent_feedback %}
+                        {% for feedback in stats.recent_feedback[:1] %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-comment text-info"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h6>Feedback Received</h6>
+                                <p>{{ feedback[0][:50] }}{% if feedback[0]|length > 50 %}...{% endif %}</p>
+                                <small class="text-muted">{{ feedback[1] }}/10 rating</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if not stats.recent_books and not stats.recent_users and not stats.recent_feedback %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-info-circle text-muted"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h6>No Recent Activity</h6>
+                                <p>Library activity will appear here</p>
+                                <small class="text-muted">Start by adding books or users</small>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="weather-card">
+            <div class="card-header">
+                <h5><i class="fas fa-sun"></i> Library Status</h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="weather-icon">
+                    <i class="fas fa-book-open fa-3x text-primary"></i>
+                </div>
+                <h4 class="weather-temp">All Systems Operational</h4>
+                <p class="weather-desc">Library is running smoothly</p>
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Database</span>
+                        <span class="detail-value text-success">Online</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Total Users</span>
+                        <span class="detail-value">{{ stats.total_users }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Books Available</span>
+                        <span class="detail-value">{{ stats.total_books - stats.books_issued }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Books Issued</span>
+                        <span class="detail-value">{{ stats.books_issued }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Update current time
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    const timeElement = document.getElementById('current-time');
+    if (timeElement) {
+        timeElement.textContent = timeString;
+    }
+}
+
+// Update time every second
+setInterval(updateTime, 1000);
+updateTime();
+
+// Animate dashboard numbers
+function animateDashboardNumbers() {
+    const numbers = document.querySelectorAll('.card-number');
+    numbers.forEach(function(number) {
+        const target = parseInt(number.getAttribute('data-count')) || 0;
+        const current = 0;
+        const increment = target / 50;
+        let currentValue = 0;
+        
+        const timer = setInterval(function() {
+            currentValue += increment;
+            if (currentValue >= target) {
+                number.textContent = target;
+                clearInterval(timer);
+            } else {
+                number.textContent = Math.floor(currentValue);
+            }
+        }, 30);
+    });
+}
+
+// Trigger animation when page loads
+setTimeout(animateDashboardNumbers, 1000);
+</script>
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard - The Book Worm{% endblock %}
+
+{% block content %}
+<!-- Welcome Section -->
+<div class="dashboard-header">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="dashboard-title">
+                <i class="fas fa-tachometer-alt"></i> User Dashboard
+            </h1>
+            <p class="dashboard-subtitle">
+                Welcome back, <span class="admin-name">{{ session.user_name }}</span>! 
+                Here's your personal library overview.
+            </p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="dashboard-time">
+                <i class="fas fa-clock"></i>
+                <span id="current-time"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-5">
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card books-card">
+            <div class="card-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="{{ user_stats.total_books }}">{{ user_stats.total_books }}</h3>
+                <p class="card-label">Total Books</p>
+                <div class="card-trend">
+                    <i class="fas fa-book text-primary"></i>
+                    <span>In library collection</span>
+                </div>
+            </div>
+            <a href="{{ url_for('user_books') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card users-card">
+            <div class="card-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="{{ user_stats.available_books }}">{{ user_stats.available_books }}</h3>
+                <p class="card-label">Available Books</p>
+                <div class="card-trend">
+                    <i class="fas fa-check text-success"></i>
+                    <span>Ready to borrow</span>
+                </div>
+            </div>
+            <a href="{{ url_for('user_books') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card issued-card">
+            <div class="card-icon">
+                <i class="fas fa-bookmark"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="{% if user_stats.has_book %}1{% else %}0{% endif %}">{% if user_stats.has_book %}1{% else %}0{% endif %}</h3>
+                <p class="card-label">Books Issued</p>
+                <div class="card-trend">
+                    <i class="fas fa-{% if user_stats.has_book %}book text-warning{% else %}minus text-muted{% endif %}"></i>
+                    <span>{% if user_stats.has_book %}Currently borrowed{% else %}No books issued{% endif %}</span>
+                </div>
+            </div>
+            <a href="{{ url_for('user_books') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card feedback-card">
+            <div class="card-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-number" data-count="0">0</h3>
+                <p class="card-label">My Feedback</p>
+                <div class="card-trend">
+                    <i class="fas fa-star text-warning"></i>
+                    <span>Share your experience</span>
+                </div>
+            </div>
+            <a href="{{ url_for('feedback') }}" class="card-action">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <h4>Quick Actions</h4>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <a href="{{ url_for('user_books') }}" class="btn btn-outline-primary w-100">
+                    <i class="fas fa-search"></i> Search Books
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ url_for('feedback') }}" class="btn btn-outline-info w-100">
+                    <i class="fas fa-star"></i> Rate Library
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Library Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Borrowing Rules:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> One book per user at a time</li>
+                            <li><i class="fas fa-check text-success"></i> Return books promptly</li>
+                            <li><i class="fas fa-check text-success"></i> Handle books with care</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Library Hours:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-clock text-primary"></i> Monday - Friday: 9:00 AM - 6:00 PM</li>
+                            <li><i class="fas fa-clock text-primary"></i> Saturday: 10:00 AM - 4:00 PM</li>
+                            <li><i class="fas fa-clock text-primary"></i> Sunday: Closed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Update current time
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    const timeElement = document.getElementById('current-time');
+    if (timeElement) {
+        timeElement.textContent = timeString;
+    }
+}
+
+// Update time every second
+setInterval(updateTime, 1000);
+updateTime();
+
+// Animate dashboard numbers
+function animateDashboardNumbers() {
+    const numbers = document.querySelectorAll('.card-number');
+    numbers.forEach(function(number) {
+        const target = parseInt(number.getAttribute('data-count')) || 0;
+        const current = 0;
+        const increment = target / 50;
+        let currentValue = 0;
+        
+        const timer = setInterval(function() {
+            currentValue += increment;
+            if (currentValue >= target) {
+                number.textContent = target;
+                clearInterval(timer);
+            } else {
+                number.textContent = Math.floor(currentValue);
+            }
+        }, 30);
+    });
+}
+
+// Trigger animation when page loads
+setTimeout(animateDashboardNumbers, 1000);
+</script>
+{% endblock %}
