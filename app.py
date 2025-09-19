@@ -12,9 +12,16 @@ DB_CONFIG = {
     'host': 'dpg-d36q062li9vc73dbugcg-a',
     'user': 'thebookworm_user',
     'password': '6fb5ZGBG0bXoZzRKLW6cCQihLQHG9cim',
-    'database': 'thebookworm'
+    'database': 'thebookworm',
+    'port': '3306'
 }
-
+# conn = mysql.connector.connect(
+#     host=os.getenv("dpg-d36q062li9vc73dbugcg-a"),      # set in Render dashboard
+#     user=os.getenv("thebookworm_user"),
+#     password=os.getenv("6fb5ZGBG0bXoZzRKLW6cCQihLQHG9cim"),
+#     database=os.getenv("thebookworm"),
+#     port=3306
+# )
 def get_db_connection():
     """Create and return database connection"""
     try:
